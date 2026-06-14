@@ -1,4 +1,10 @@
-streamlit
-chromadb
-groq
-python-dotenv
+# streamlit
+# chromadb
+# groq
+# python-dotenv
+
+streamlit==1.45.1
+chromadb==0.5.23
+groq==0.30.0
+python-dotenv==1.1.1
+protobuf==5.29.5
