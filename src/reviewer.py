@@ -99,7 +99,7 @@ client = chromadb.PersistentClient(
 
 print("Collections found:", client.list_collections())
 
-collection = client.get_collection(
+collection = client.get_or_create_collection(
     name="code_review_knowledge"
 )
 
