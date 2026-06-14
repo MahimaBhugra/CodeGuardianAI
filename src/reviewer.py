@@ -75,7 +75,7 @@
 import chromadb
 from groq import Groq
 import streamlit as st
-
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -89,19 +89,38 @@ client_groq = Groq(
     api_key=st.secrets["GROQ_API_KEY"]
 )
 # ChromaDB
-client = chromadb.PersistentClient(
-    path="chroma_db"
-)
+# client = chromadb.PersistentClient(
+#     path="chroma_db"
+# )
 
 # collection = client.get_collection(
 #     name="code_review_knowledge"
 # )
 
-print("Collections found:", client.list_collections())
+# print("Collections found:", client.list_collections())
+
+# collection = client.get_or_create_collection(
+#     name="code_review_knowledge"
+# )
+
+
+print("Current directory:", os.getcwd())
+print("chroma_db exists:", os.path.exists("chroma_db"))
+
+if os.path.exists("chroma_db"):
+    print("chroma_db contents:", os.listdir("chroma_db"))
+
+client = chromadb.PersistentClient(
+    path="chroma_db"
+)
+
+print("Client created successfully")
 
 collection = client.get_or_create_collection(
     name="code_review_knowledge"
 )
+
+print("Collection loaded")
 
 def add_line_numbers(code):
 
