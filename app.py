@@ -122,7 +122,7 @@ st.markdown(
 st.markdown(
     """
     <div class="subtitle">
-        RAG + ChromaDB + Ollama + LLM Powered Code Review System
+       RAG-Powered AI Code Review System with Context-Aware Analysis
     </div>
     """,
     unsafe_allow_html=True
