@@ -93,10 +93,15 @@ client = chromadb.PersistentClient(
     path="chroma_db"
 )
 
+# collection = client.get_collection(
+#     name="code_review_knowledge"
+# )
+
+print("Collections found:", client.list_collections())
+
 collection = client.get_collection(
     name="code_review_knowledge"
 )
-
 
 def add_line_numbers(code):
 
