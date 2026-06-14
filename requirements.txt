@@ -13,4 +13,3 @@ streamlit==1.45.1
 chromadb==0.4.24
 groq==0.30.0
 python-dotenv==1.1.1
-protobuf==4.25.3
