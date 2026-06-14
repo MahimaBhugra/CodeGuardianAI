@@ -70,6 +70,8 @@
 
 
 
+from turtle import st
+
 import chromadb
 from groq import Groq
 import os
@@ -79,10 +81,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Create Groq Client
-client_groq = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
+# client_groq = Groq(
+#     api_key=os.getenv("GROQ_API_KEY")
+# )
 
+client_groq = Groq(
+    api_key=st.secrets["GROQ_API_KEY"]
+)
 # ChromaDB
 client = chromadb.PersistentClient(
     path="chroma_db"
