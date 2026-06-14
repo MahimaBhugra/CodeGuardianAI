@@ -74,7 +74,7 @@ from turtle import st
 
 import chromadb
 from groq import Groq
-import os
+import streamlit as st
 
 from dotenv import load_dotenv
 
