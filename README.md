@@ -20,7 +20,8 @@ Manual code reviews can be time-consuming and inconsistent.
 
 CodeGuardian AI automates this process using RAG and LLMs to provide intelligent and context-aware code reviews.
 
-**Technologies Used:**
+# **Technologies Used:**
+
       Frontend
       Streamlit
         
