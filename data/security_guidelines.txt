@@ -1,0 +1,65 @@
+SECURITY GUIDELINES
+
+INPUT VALIDATION
+
+1. Validate all user inputs before processing.
+2. Reject unexpected data formats.
+3. Sanitize inputs before storing them.
+4. Use allowlists instead of blocklists where possible.
+5. Never trust client-side validation alone.
+
+SQL INJECTION
+
+1. Use parameterized queries.
+2. Avoid string concatenation in SQL statements.
+3. Use ORM frameworks when possible.
+4. Validate database inputs.
+5. Limit database permissions.
+
+CROSS-SITE SCRIPTING (XSS)
+
+1. Escape user-generated content before rendering.
+2. Sanitize HTML input.
+3. Use Content Security Policy (CSP).
+4. Avoid inserting raw user input into HTML.
+5. Validate and encode outputs.
+
+AUTHENTICATION
+
+1. Never store passwords in plain text.
+2. Use strong hashing algorithms.
+3. Enforce strong password policies.
+4. Implement multi-factor authentication when possible.
+5. Lock accounts after repeated failed login attempts.
+
+SENSITIVE DATA
+
+1. Avoid hardcoded passwords.
+2. Avoid hardcoded API keys.
+3. Encrypt sensitive information.
+4. Use environment variables for secrets.
+5. Never expose credentials in source code.
+
+FILE HANDLING
+
+1. Validate uploaded file types.
+2. Restrict file size limits.
+3. Store uploaded files securely.
+4. Scan files for malicious content.
+5. Prevent path traversal vulnerabilities.
+
+ERROR HANDLING
+
+1. Do not expose stack traces to users.
+2. Log errors securely.
+3. Avoid revealing system details.
+4. Return generic error messages.
+5. Handle exceptions properly.
+
+GENERAL SECURITY
+
+1. Follow the Principle of Least Privilege.
+2. Keep dependencies updated.
+3. Remove unused libraries.
+4. Avoid insecure third-party packages.
+5. Conduct regular security reviews.

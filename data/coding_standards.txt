@@ -1,0 +1,69 @@
+
+PYTHON CODING STANDARDS
+
+1. Follow PEP8 naming conventions.
+2. Use meaningful variable and function names.
+3. Keep functions small and focused on a single task.
+4. Add docstrings for important functions and classes.
+5. Use type hints where possible.
+6. Avoid global variables.
+7. Handle exceptions using try-except blocks.
+8. Avoid bare except statements.
+9. Use list comprehensions when they improve readability.
+10. Remove unused imports and variables.
+11. Use constants for fixed values.
+12. Avoid code duplication.
+13. Validate user inputs before processing.
+14. Close files using context managers (with statement).
+15. Use logging instead of excessive print statements.
+16. Prevent division by zero errors.
+17. Write modular and reusable code.
+18. Follow object-oriented principles when appropriate.
+19. Use virtual environments for dependency management.
+20. Write unit tests for critical functions.
+
+JAVA CODING STANDARDS
+
+1. Follow SOLID principles.
+2. Use meaningful class, method, and variable names.
+3. Keep methods short and focused.
+4. Follow proper package organization.
+5. Use access modifiers appropriately.
+6. Prefer interfaces over concrete implementations.
+7. Handle exceptions properly.
+8. Avoid empty catch blocks.
+9. Close resources using try-with-resources.
+10. Avoid hardcoded values.
+11. Use constants for fixed values.
+12. Minimize code duplication.
+13. Follow camelCase naming conventions.
+14. Use final when variables should not change.
+15. Validate user input.
+16. Write reusable utility methods.
+17. Avoid deeply nested loops and conditions.
+18. Follow proper object-oriented design.
+19. Use collections appropriately.
+20. Write unit tests using JUnit.
+
+JAVASCRIPT CODING STANDARDS
+
+1. Use const and let instead of var.
+2. Use meaningful variable and function names.
+3. Prefer arrow functions where appropriate.
+4. Keep functions small and modular.
+5. Validate all user inputs.
+6. Handle asynchronous code using async-await.
+7. Always handle promise rejections.
+8. Avoid global variables.
+9. Use strict equality (===).
+10. Avoid duplicate code.
+11. Follow consistent indentation.
+12. Use template literals instead of string concatenation when possible.
+13. Break large files into modules.
+14. Remove unused variables and functions.
+15. Avoid deeply nested callbacks.
+16. Sanitize user input before rendering.
+17. Avoid exposing sensitive information in client-side code.
+18. Use comments only when necessary.
+19. Follow a consistent naming convention.
+20. Write unit tests for important functions.

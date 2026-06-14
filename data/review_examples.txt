@@ -1,0 +1,172 @@
+EXAMPLE 1
+
+Code:
+
+return a / b
+
+Issue:
+Possible division by zero.
+
+Severity:
+High
+
+Fix:
+Check if b equals zero before division.
+
+---
+
+EXAMPLE 2
+
+Code:
+
+query = "SELECT * FROM users WHERE id=" + user_input
+
+Issue:
+SQL Injection vulnerability.
+
+Severity:
+Critical
+
+Fix:
+Use parameterized queries.
+
+---
+
+EXAMPLE 3
+
+Code:
+
+password = "admin123"
+
+Issue:
+Hardcoded password detected.
+
+Severity:
+High
+
+Fix:
+Store secrets in environment variables.
+
+---
+
+EXAMPLE 4
+
+Code:
+
+try:
+process_data()
+except:
+pass
+
+Issue:
+Exception is silently ignored.
+
+Severity:
+Medium
+
+Fix:
+Catch specific exceptions and log errors.
+
+---
+
+EXAMPLE 5
+
+Code:
+
+for i in range(len(items)):
+print(items[i])
+
+Issue:
+Readability issue.
+
+Severity:
+Low
+
+Fix:
+Use direct iteration over items.
+
+---
+
+EXAMPLE 6
+
+Code:
+
+document.getElementById("msg").innerHTML = userInput
+
+Issue:
+Potential Cross-Site Scripting (XSS).
+
+Severity:
+High
+
+Fix:
+Sanitize user input before rendering.
+
+---
+
+EXAMPLE 7
+
+Code:
+
+Scanner sc = new Scanner(System.in);
+
+Issue:
+Resource not closed.
+
+Severity:
+Medium
+
+Fix:
+Use try-with-resources.
+
+---
+
+EXAMPLE 8
+
+Code:
+
+File file = new File(userInput);
+
+Issue:
+Potential path traversal vulnerability.
+
+Severity:
+High
+
+Fix:
+Validate file paths before access.
+
+---
+
+EXAMPLE 9
+
+Code:
+
+while(true){
+}
+
+Issue:
+Infinite loop detected.
+
+Severity:
+Medium
+
+Fix:
+Add proper termination conditions.
+
+---
+
+EXAMPLE 10
+
+Code:
+
+const password = "secret123";
+
+Issue:
+Hardcoded credential.
+
+Severity:
+High
+
+Fix:
+Use environment variables or secure secret storage.
