@@ -7,7 +7,7 @@ RAG-Based AI Code Reviewer for Context-Aware Bug Detection and Code Improvement
 CodeGuardian AI is a RAG (Retrieval-Augmented Generation) based AI Code Reviewer that analyzes source code, identifies bugs, explains issues, suggests improvements, and generates corrected code using a Large Language Model (LLM).
 Unlike a normal AI chatbot, CodeGuardian AI first retrieves relevant coding standards, security guidelines, and review examples from a knowledge base before generating a review. This makes the feedback more accurate, context-aware, and aligned with software engineering best practices.
 
-#**Problem Statement**
+# **Problem Statement**
 
 Developers often spend significant time reviewing code for:
 Bugs and logical errors
@@ -20,21 +20,21 @@ Manual code reviews can be time-consuming and inconsistent.
 
 CodeGuardian AI automates this process using RAG and LLMs to provide intelligent and context-aware code reviews.
 
-#**Technologies Used:**
+**Technologies Used:**
       Frontend
       Streamlit
         
 #**Backend:**
       Python
       
-#**Vector Database:**
+**Vector Database:**
       ChromaDB
       
-#**LLM:**
+**LLM:**
     Groq API
     Llama 3.3 70B Versatile
     
-#**Knowledge Base:**
+**Knowledge Base:**
     Coding Standards
     Security Guidelines
     Review Examples
