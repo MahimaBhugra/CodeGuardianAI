@@ -70,7 +70,7 @@
 
 
 
-from turtle import st
+
 
 import chromadb
 from groq import Groq
