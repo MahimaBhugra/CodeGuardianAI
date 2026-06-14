@@ -41,7 +41,7 @@ CodeGuardian AI automates this process using RAG and LLMs to provide intelligent
     Review Examples
 
     
-#**AI Technique:**
+**AI Technique:**
     Retrieval-Augmented Generation (RAG)
 
 
