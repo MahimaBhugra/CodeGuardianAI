@@ -1,43 +1,17 @@
-# import streamlit as st
-# from src.reviewer import review_code
-
-# st.title("AI Code Reviewer")
-
-# code = st.text_area(
-#     "Paste your code here",
-#     height=300
-# )
-
-# if st.button("Review Code"):
-
-#     with st.spinner("Reviewing..."):
-
-#         result = review_code(code)
-
-#     st.subheader("Review Result")
-
-#     st.write(result)
-
-
-
 
 import streamlit as st
 from src.reviewer import review_code
 
-# --------------------------------------------------
-# PAGE CONFIG
-# --------------------------------------------------
 
+# PAGE CONFIG
 st.set_page_config(
     page_title="CodeGuardian AI",
     page_icon="💻",
     layout="wide"
 )
 
-# --------------------------------------------------
-# CUSTOM CSS
-# --------------------------------------------------
 
+# CUSTOM CSS
 st.markdown("""
 <style>
 
@@ -90,13 +64,30 @@ textarea{
 /* Main Button */
 .stButton > button{
     width:100%;
-    background-color:#16a34a;
-    color:white;
+    background-color:#16a34a !important;
+    color:white !important;
     font-weight:600;
     font-size:18px;
     border-radius:8px;
     border:none;
     height:50px;
+}
+
+.stButton > button:hover{
+    background-color:#15803d !important;
+    color:white !important;
+}
+
+.stButton > button:active{
+    background-color:#166534 !important;
+    color:white !important;
+}
+
+.stButton > button:focus{
+    background-color:#16a34a !important;
+    color:white !important;
+    outline:none !important;
+    box-shadow:none !important;
 }
 
 /* Download Button */
@@ -117,10 +108,8 @@ hr{
 </style>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# HEADER
-# --------------------------------------------------
 
+# HEADER
 st.markdown(
     """
     <div class="main-title">
@@ -141,10 +130,8 @@ st.markdown(
 
 st.divider()
 
-# --------------------------------------------------
-# INPUT
-# --------------------------------------------------
 
+# INPUT
 st.subheader("📝 Source Code")
 
 user_code = st.text_area(
@@ -153,10 +140,8 @@ user_code = st.text_area(
     placeholder="Paste your Python, Java, JavaScript or C++ code here..."
 )
 
-# --------------------------------------------------
-# REVIEW BUTTON
-# --------------------------------------------------
 
+# REVIEW BUTTON
 if st.button("🚀 Analyze Code"):
 
     if not user_code.strip():
@@ -169,10 +154,8 @@ if st.button("🚀 Analyze Code"):
 
     st.divider()
 
-    # --------------------------------------------------
+    
     # SPLIT REVIEW AND FIXED CODE
-    # --------------------------------------------------
-
     if "CORRECTED_CODE:" in result:
 
         review_text, fixed_code = result.split(
@@ -182,10 +165,8 @@ if st.button("🚀 Analyze Code"):
 
         col1, col2 = st.columns([1, 1])
 
-        # --------------------------
+        
         # REVIEW PANEL
-        # --------------------------
-
         with col1:
 
             st.subheader("📋 Review Report")
@@ -199,10 +180,8 @@ if st.button("🚀 Analyze Code"):
                 unsafe_allow_html=True
             )
 
-        # --------------------------
+        
         # CORRECTED CODE PANEL
-        # --------------------------
-
         with col2:
 
             st.subheader("✅ Corrected Code")
