@@ -10,3 +10,12 @@ __pycache__/
 
 # VS Code
 .vscode/
+
+.streamlit/secrets.toml
+
+# Virtual environments
+venv/
+.venv/
+
+# ChromaDB local database
+chroma_db/
