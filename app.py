@@ -3,10 +3,6 @@ import streamlit as st
 
 from src.reviewer import review_code
 
-
-
-
-
 # =====================================================
 
 # PAGE CONFIGURATION
@@ -73,13 +69,21 @@ if "supabase_refresh_token" not in st.session_state:
 
 # A login screen is shown until Supabase successfully authenticates a user.
 if not st.session_state.authenticated:
-    st.markdown("""
+    bg = "#050505"
+    fg = "#ffffff"
+    muted = "#a3a3a3"
+    panel = "#101010"
+    border = "#343434"
+    st.markdown(f"""
         <style>
-        .stApp { background: #050505; color: #ffffff; }
-        header[data-testid="stHeader"] { background: #050505; }
-        .auth-brand { color: #4ade80; text-align: center; font-size: 2.2rem;
-                      font-weight: 800; margin-top: 1.2rem; }
-        .auth-subtitle { color: #a3a3a3; text-align: center; margin-bottom: 1.5rem; }
+        .stApp {{ background: {bg}; color: {fg}; }}
+        header[data-testid="stHeader"] {{ background: {bg}; }}
+        .auth-brand {{ color: #16a34a; text-align: center; font-size: 2rem;
+                      font-weight: 800; margin-top: 1rem; }}
+        .auth-subtitle {{ color: {muted}; text-align: center; margin-bottom: 1.1rem; }}
+        div[data-testid="stForm"] {{ background: {panel}; border: 1px solid {border};
+             border-radius: 14px; padding: 1rem 1.1rem; }}
+        div[data-testid="stTextInput"] label {{ color: {fg}; }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -95,83 +99,69 @@ if not st.session_state.authenticated:
         )
         st.stop()
 
-    login_tab, register_tab = st.tabs(["Login", "Register"])
+    # Keep authentication panels compact and centered instead of stretching across the page.
+    _, auth_col, _ = st.columns([1.6, 2, 1.6])
+    with auth_col:
+        login_tab, register_tab = st.tabs(["Login", "Register"])
 
-    with login_tab:
-        with st.form("login_form"):
-            login_email = st.text_input("Email address", key="login_email")
-            login_password = st.text_input("Password", type="password", key="login_password")
-            login_submitted = st.form_submit_button("Login", use_container_width=True)
+        with login_tab:
+            with st.form("login_form"):
+                login_email = st.text_input("Email address", key="login_email")
+                login_password = st.text_input("Password", type="password", key="login_password")
+                login_submitted = st.form_submit_button("Login", use_container_width=True)
 
-        if login_submitted:
-            if not login_email.strip() or not login_password:
-                st.warning("Enter both your email address and password.")
-            else:
-                try:
-                    auth_response = supabase.auth.sign_in_with_password({
-                        "email": login_email.strip(),
-                        "password": login_password,
-                    })
-                    if remember_auth_session(auth_response):
-                        st.rerun()
-                    else:
-                        st.error("Login was not completed. Check your email confirmation and try again.")
-                except Exception as e:
-                    # Show Supabase's error message to help diagnose configuration issues.
-                    # Never display the submitted password or API keys.
-                    error_detail = str(e).strip() or type(e).__name__
-                    st.error("Login failed. Supabase returned this error:")
-                    st.code(f"{type(e).__name__}: {error_detail}")
-                    st.caption(
-                        "If the message mentions email confirmation, confirm your email in your inbox. "
-                        "If it mentions invalid credentials, verify the email and password."
-                    )
+            if login_submitted:
+                if not login_email.strip() or not login_password:
+                    st.warning("Enter both your email address and password.")
+                else:
+                    try:
+                        auth_response = supabase.auth.sign_in_with_password({
+                            "email": login_email.strip(),
+                            "password": login_password,
+                        })
+                        if remember_auth_session(auth_response):
+                            st.rerun()
+                        else:
+                            st.error("Login was not completed. Check your email confirmation and try again.")
+                    except Exception as e:
+                        error_detail = str(e).strip() or type(e).__name__
+                        st.error("Login failed. Supabase returned this error:")
+                        st.code(f"{type(e).__name__}: {error_detail}")
+                        st.caption("If the message mentions email confirmation, confirm your email in your inbox.")
 
-    with register_tab:
-        with st.form("register_form"):
-            register_email = st.text_input("Email address", key="register_email")
-            register_password = st.text_input("Password", type="password", key="register_password")
-            confirm_password = st.text_input("Confirm password", type="password", key="confirm_password")
-            register_submitted = st.form_submit_button("Create account", use_container_width=True)
+        with register_tab:
+            with st.form("register_form"):
+                register_email = st.text_input("Email address", key="register_email")
+                register_password = st.text_input("Password", type="password", key="register_password")
+                confirm_password = st.text_input("Confirm password", type="password", key="confirm_password")
+                register_submitted = st.form_submit_button("Create account", use_container_width=True)
 
-        if register_submitted:
-            if not register_email.strip() or not register_password or not confirm_password:
-                st.warning("Complete all fields to create your account.")
-            elif register_password != confirm_password:
-                st.warning("The passwords do not match.")
-            elif len(register_password) < 8:
-                st.warning("Use a password with at least 8 characters.")
-            else:
-                try:
-                    auth_response = supabase.auth.sign_up({
-                        "email": register_email.strip(),
-                        "password": register_password,
-                    })
-                    if remember_auth_session(auth_response):
-                        st.success("Your account was created successfully.")
-                        st.rerun()
-                    else:
-                        st.success(
-                            "Registration request received. Check your inbox for the "
-                            "Supabase confirmation email, then return here to log in."
-                        )
-                except Exception as e:
-                    # Display the actual Supabase response instead of masking the cause.
-                    # Do not print submitted passwords or API keys.
-                    error_detail = str(e).strip() or type(e).__name__
-                    st.error("Registration failed. Supabase returned this error:")
-                    st.code(f"{type(e).__name__}: {error_detail}")
-                    st.caption(
-                        "Check whether the email is already registered, the password meets "
-                        "your Supabase password requirements, and the Email provider is enabled."
-                    )
+            if register_submitted:
+                if not register_email.strip() or not register_password or not confirm_password:
+                    st.warning("Complete all fields to create your account.")
+                elif register_password != confirm_password:
+                    st.warning("The passwords do not match.")
+                elif len(register_password) < 8:
+                    st.warning("Use a password with at least 8 characters.")
+                else:
+                    try:
+                        auth_response = supabase.auth.sign_up({
+                            "email": register_email.strip(),
+                            "password": register_password,
+                        })
+                        if remember_auth_session(auth_response):
+                            st.success("Your account was created successfully.")
+                            st.rerun()
+                        else:
+                            st.success("Registration request received. Check your inbox for the Supabase confirmation email, then return here to log in.")
+                    except Exception as e:
+                        error_detail = str(e).strip() or type(e).__name__
+                        st.error("Registration failed. Supabase returned this error:")
+                        st.code(f"{type(e).__name__}: {error_detail}")
+                        st.caption("Check whether the email is already registered and the password meets your Supabase requirements.")
 
     st.caption("Never submit real passwords, API keys, or other secrets in code-review requests.")
     st.stop()
-
-
-
-
 
 
 # Rebuild a client for this signed-in Streamlit session and attach that user's JWT.
@@ -690,7 +680,7 @@ hr {
 
     background: #101010 !important;
 
-    color: #e5e7eb !important;
+    color: #ffffff !important;
 
     border: 1px solid #353535 !important;
 
@@ -724,7 +714,7 @@ hr {
 
     padding: 2rem 0 0.5rem;
 
-    color: #737373;
+    color: #a3a3a3;
 
     font-size: 0.85rem;
 
@@ -820,45 +810,43 @@ hr {
 
 # =====================================================
 
+
+
 # NAVBAR
 
 # =====================================================
 
 
 
-left_nav, user_nav, action_nav = st.columns(
-
-    [3.5, 1.5, 1],
-
+# Keep all navigation items aligned on one horizontal row.
+nav_brand, nav_user, nav_home, nav_history, nav_logout = st.columns(
+    [2.4, 2.4, 0.8, 0.9, 0.8],
     vertical_alignment="center",
-
+    gap="small",
 )
 
-
-with left_nav:
-
+with nav_brand:
     st.markdown(
-
         '<div class="brand-name">🛡️ CodeGuardian AI</div>',
-
         unsafe_allow_html=True,
-
     )
 
-
-with user_nav:
+with nav_user:
     st.caption(f"Signed in: {st.session_state.user_email}")
 
-
-with action_nav:
+with nav_home:
     if st.session_state.page != "home":
-        if st.button("← Home", use_container_width=True, key="home_nav"):
+        if st.button("← Home", key="home_nav", use_container_width=True):
             st.session_state.page = "home"
             st.rerun()
-    if st.button("🕘 History", use_container_width=True, key="history_nav"):
+
+with nav_history:
+    if st.button("🕘 History", key="history_nav", use_container_width=True):
         st.session_state.page = "history"
         st.rerun()
-    if st.button("Logout", use_container_width=True, key="logout_nav"):
+
+with nav_logout:
+    if st.button("Logout", key="logout_nav", use_container_width=True):
         try:
             supabase.auth.sign_out()
         except Exception:
@@ -873,7 +861,6 @@ with action_nav:
         st.session_state.user_id = ""
         st.session_state.page = "home"
         st.rerun()
-
 
 
 st.divider()
@@ -1290,13 +1277,8 @@ elif st.session_state.page == "reviewer":
 
 
 
-    language = st.selectbox(
-
-        "Programming Language",
-
-        ["Python", "Java", "JavaScript", "C++", "C", "C#", "Other"],
-
-    )
+    # Language is no longer selected manually; the reviewer receives the code as submitted.
+    language = "Auto-detected"
 
 
 
