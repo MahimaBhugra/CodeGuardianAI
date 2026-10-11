@@ -4,3 +4,4 @@ chromadb==0.4.24
 groq==0.30.0
 python-dotenv==1.1.1
 numpy==1.26.4
+supabase
